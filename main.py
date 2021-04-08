@@ -8,7 +8,7 @@ import datetime
 
 # Starts the script
 
-pid = subprocess.Popen([sys.executable, "sensors.py"])
+pid = subprocess.Popen([sys.executable, "/home/pi/sensors.py"])
 
 # Flask Server
 
@@ -25,7 +25,7 @@ def hello_world():
     <h1>Current time: {0}</h1>
     <p>Reload this page when you start and copy the time into a document.</p>
     <br><br>
-    <a href="/get">Download CSV</a>
+    <a href="/get" download="values.csv">Download CSV</a>
     <br />
     <h4>Directions</h4>
     <p>
@@ -39,14 +39,12 @@ def hello_world():
 """.format(datetime.datetime.now())
 
 @app.route('/get')
-def return_files_tut():
+def return_files():
 #     startDate = datetime.datetime.strptime(request.args.get('start'), '%Y-%m-%d %H:%M:%S.%f')
 #     endDate = datetime.datetime.strptime(request.args.get('end'), '%Y-%m-%d %H:%M:%S.%f')
 #     with open('values.csv', mode='w') as csvFile:
-        
-        
     try:
-        return send_file('values.csv', attachment_filename='values.csv')
+        return send_file('/home/pi/values.csv', attachment_filename='values.csv')
     except Exception as e:
         return str(e)
     
